@@ -1,5 +1,6 @@
 import { MainButton, SecondaryButton } from './ui/components/buttons';
 import StatusBar from './ui/components/statusBar';
+import Footer from './ui/components/footer';
 
 export default function Home() {
     return (
@@ -47,6 +48,7 @@ export default function Home() {
                 Non sunt consequatur nostrum officiis placeat excepturi officia
                 impedit. Repellat rerum exercitationem aliquam dolor ad.
             </div>
+            <Footer />
         </div>
     );
 }
