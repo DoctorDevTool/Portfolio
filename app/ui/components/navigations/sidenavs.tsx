@@ -1,26 +1,42 @@
 'use client';
 
 import NavLinks from './nav-links';
-import { manrope } from './fonts';
-import { useState } from 'react';
+import { manrope } from '../../fonts';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function SideNav() {
     const [isOpen, setIsOpen] = useState(false);
 
-    const activator = () => setIsOpen(!isOpen);
+    const activator = () => setIsOpen((prev) => !prev);
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.classList.add('overflow-hidden');
+        } else {
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        return () => {
+            document.body.classList.remove('overflow-hidden');
+        };
+    }, [isOpen]);
 
     return (
         <nav className='fixed md:contents top-0 left-0 w-full z-50 bg-background'>
             <div className='flex flex-row md:flex-col justify-between md:justify-start items-center md:items-start my-4 mx-6'>
-                <a href='/' className='md:mx-3 mx-2 w-fit'>
-                    <div className={`${manrope.className} uppercase`}>
+                <Link href='/' className='md:mx-3 mx-2 w-fit z-40'>
+                    <div
+                        className={`${manrope.className} uppercase tracking-wider`}>
                         <p>Ivan Ishchenko</p>
                     </div>
-                </a>
-                <div className='md:hidden'>
+                </Link>
+
+                {/* Hamburger */}
+                <div className='md:hidden z-40'>
                     <button onClick={activator}>
                         <svg
-                            className='inline-block h-8 w-8'
+                            className='h-8 w-8'
                             xmlns='http://www.w3.org/2000/svg'
                             fill='none'
                             viewBox='0 0 24 24'
@@ -39,31 +55,16 @@ export default function SideNav() {
                     </button>
                 </div>
 
+                {/* Desktop nav */}
                 <div className='hidden relative mt-40 before:absolute before:bg-background before:w-7 before:h-full before:z-10 before:-left-5 md:block'>
                     <NavLinks />
                 </div>
             </div>
+
+            {/* Mobile menu */}
             {isOpen && (
-                <div className=' md:hidden h-screen'>
-                    <ul
-                        onClick={activator}
-                        className=' space-y-4 px-6 ml-2 w-fit'>
-                        <li>
-                            <a href='#'>Home</a>
-                        </li>
-                        <li>
-                            <a href='#mains'>Work</a>
-                        </li>
-                        <li>
-                            <a href='#'>Experience</a>
-                        </li>
-                        <li>
-                            <a href='#'>Skills</a>
-                        </li>
-                        <li>
-                            <a href='#'>Contacts</a>
-                        </li>
-                    </ul>
+                <div className='fixed top-10 inset-0 bg-background p-6 md:hidden overflow-y-auto'>
+                    <NavLinks onClick={activator} />
                 </div>
             )}
         </nav>

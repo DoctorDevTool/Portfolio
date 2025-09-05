@@ -4,12 +4,12 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export default function NavLinks() {
+export default function NavLinks({ onClick }: { onClick?: () => void }) {
     const [activeHref, setActiveHref] = useState('');
 
     const links = [
-        { name: 'Home', href: '#home' },
-        { name: 'Work', href: '#mains' },
+        { name: 'Intro', href: '#intro' },
+        { name: 'Work', href: '#work' },
         { name: 'Experience', href: '#experience' },
         { name: 'Skills', href: '#skills' },
         { name: 'Contact', href: '#contact' },
@@ -19,7 +19,7 @@ export default function NavLinks() {
         const handleIntersections = (entries: IntersectionObserverEntry[]) => {
             const visibleSections = entries
                 .filter((entry) => entry.isIntersecting)
-                .sort((a, b) => b.intersectionRatio - a.intersectionRatio); // most visible first
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
             if (visibleSections.length > 0) {
                 const mostVisible = visibleSections[0];
@@ -29,8 +29,8 @@ export default function NavLinks() {
 
         const observer = new IntersectionObserver(handleIntersections, {
             root: null,
-            rootMargin: '0px',
-            threshold: [0.25, 0.5, 0.75], // multiple steps
+            rootMargin: '0px 0px -60% 0px',
+            threshold: 0.1,
         });
 
         links.forEach((link) => {
@@ -49,6 +49,7 @@ export default function NavLinks() {
                     <Link
                         key={link.name}
                         href={link.href}
+                        onClick={onClick}
                         scroll={true}
                         className={clsx(
                             `block w-fit p-3 font-medium transition-all duration-300 hover:text-hilight hover:translate-x-3`,

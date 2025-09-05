@@ -9,9 +9,19 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-hilight: #DDFF00;
+  --color-hilightSecondary: #DDFF0060;
   --color-textSecondary: #B8B8B8;
   --color-border: #474747;
   --color-backgroundSecondary: #242424;
+
+  --animate-fade: fade 1.3s ease-in-out infinite;
+
+  @keyframes fade {
+
+    100% {
+      opacity: 0;
+    }
+  }
 }
 
 body {

@@ -1,6 +1,6 @@
 import '@/ui/globals.css';
 import { poppins } from './ui/fonts';
-import SideNav from './ui/sidenavs';
+import SideNav from './ui/components/navigations/sidenavs';
 
 export default function RootLayout({
     children,
@@ -9,10 +9,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='en' className='scroll-smooth'>
-            <body className={`${poppins.className} antialiased`}>
-                <div className='flex h-screen flex-col md:flex-row '>
+            <body
+                className={`${poppins.className} antialiased overflow-y-auto`}>
+                <div className='flex min-h-screen flex-col md:flex-row'>
                     <div className='relative'>
-                        <div className='fixed w-full flex-none mt-8 md:w-64 overflow-hidden'>
+                        <div className='fixed z-50 w-full  mt-8 md:w-64 overflow-hidden'>
                             <SideNav />
                         </div>
                     </div>
